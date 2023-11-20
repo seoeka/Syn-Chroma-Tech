@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Responsive Website</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+    
+    header {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+    
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    
+    .search-bar {
+      flex-grow: 1;
+      margin: 0 10px;
+    }
+    
+    .categories {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .dropbtn {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      display: block;
+      text-decoration: none;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    
+    .content {
+      margin-top: 70px;
+    }
+    
+    .slider {
+      height: 200px;
+      /* Add your slider styles here */
+    }
+    
+    .whatsapp-icon {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      cursor: pointer;
+    }
+    
+    .footer {
+      background-color: #333;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo">Logo</div>
+      <div class="search-bar">
+        <input type="text" placeholder="Search...">
+      </div>
+      <div class="categories">
+        <button class="dropbtn">Categories</button>
+        <div class="dropdown-content">
+          <a href="#">Category 1</a>
+          <a href="#">Category 2</a>
+          <a href="#">Category 3</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="slider">
+      <!-- Your image slider content here -->
+    </div>
+  </div>
+
+  <div class="whatsapp-icon"> <!-- WhatsApp icon -->
+    <img src="whatsapp-icon.png" alt="WhatsApp Icon">
+  </div>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2023 Your Website. All Rights Reserved.</p>
+      <!-- Add your social media icons here -->
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
