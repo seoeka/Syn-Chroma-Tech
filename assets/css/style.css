@@ -44,7 +44,6 @@ body {
 .nav-item,
 footer .container li {
     list-style: none;
-
 }
 .xs-menu, .xs-menu-category {
     align-items: center;
@@ -57,7 +56,8 @@ footer .container li {
 }
 .xs-menu li a, 
 .xs-menu-category li a,
-footer .container li a {
+footer .container li a,
+.product-list a {
     text-decoration: none;
     color: black;
 }
@@ -77,12 +77,8 @@ footer .container li a {
 .xs-menu-category .xs-menu-txt {
     display: block;
 }
-.navbar-first {
-    background-color: rgb(221, 189, 100);
-    align-items: center;
-    justify-content: center;
-    height: 35px;
-    width: inherit;
+.navbar {
+    display: block;
 }
 #logo-main-first {
     height: 24px;
@@ -93,9 +89,9 @@ footer .container li a {
     font-size: 16px;
     margin-left: 15px;
 }
-.navbar {
+.navbar-second {
     display: flex;
-    background-color: #9F9065;
+    background-color: #B2AB99;
     align-items: center;
     padding: 0 70px;
     height: 80px;
@@ -137,7 +133,6 @@ footer .container li a {
 .dropbtn .dropdown-icon {
     margin-left: 4px;
 }
-
 .dropdown-menu {
     display: none;
     position: absolute;
@@ -186,18 +181,17 @@ footer .container li a {
     font-size: 16px;
     border: none;
     outline: none;
+    border-radius: 5px;
     flex: 1;
-    padding: 8px;
+    padding: 6px 10px;
 }
 .search-icon {
     margin-left: 8px;
     color: gray;
 }
-
 .menu-icon {
     display: none;
 }
-
 .main-slider {
     height: 300px;
     width: 100%;
@@ -247,15 +241,113 @@ footer .container li a {
     background-color: #fff; /* Change this to the desired color */
     opacity: 1;
 }
-  
 .main-container {
+    display: flex;
     height: fit-content;
     background-color: white;
-    padding: 70px;
+    justify-content: center;
+    margin: 20px 0;
 }
-
+.row-mc {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;
+    padding: 15px;
+    justify-content: center;
+}
+.col-mc-3 {
+    display: flex;
+    justify-content: center;
+}
+.nav-category {
+    width: 250px;
+    padding: 0 10px;
+}
+.navbar-head {
+    padding: 20px;
+}
+.nav-category a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 400;
+    background-color: purple;
+    color: white;
+} 
+.collapse a {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+}
+.nav-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    padding: 10px 0;
+    color: black;
+}
+.nav-item {
+    border: 1px solid lightgrey;
+    border-top: none;
+}
+.nav-item a:hover {
+    color: orange;
+}  
+.fa-angle-down {
+    margin-left: auto;
+    transition: transform 0.3s ease;
+}
+.fa-angle-down.rotated {
+    transform: rotate(-180deg);
+}
+.col-mc-9 {
+    display: flex;
+    justify-content: center;
+}
+.product-list {
+    max-width: 720px;
+    padding: 0 10px;
+    height: auto;
+    border-radius: 10px;
+}
+.product-list .product-head {
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+}
+.product-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: inherit;
+}
+.product-card {
+    display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.pc-item {
+    padding: 0 10px;
+}
+.pc-head {
+    width : 200px;
+    height: 200px;
+    background-color: #9F9065;
+    border-radius: 10px;
+}
+.pc-head img {
+    flex: 0 0 100%;
+    object-fit: cover;
+}
+.pc-body {
+    padding: 15px 0 ;
+    text-align: center;
+}
 footer {
-    background-color: gray;
+    background-color: #B2AB99;
     height: fit-content;
 }
 footer .container {
@@ -304,7 +396,7 @@ footer .container {
 }
 .copyright {
     display: flex;
-    background-color: #9F9065;
+    background: #8C8787;
     height: 72px;
     justify-content: center;
     align-items: center;
@@ -319,14 +411,24 @@ footer .container {
 }
 
 @media screen and (max-width: 992px) {
+    .navbar {
+        top:0;
+        width: 100%;
+        position: fixed;
+        z-index: 1000;
+    }
     .navbar-first {
         display: flex;
+        background-color: rgb(221, 189, 100);
+        align-items: center;
+        justify-content: center;
+        height: 35px;
     }
-    .navbar {
+    .navbar-second {
         padding: 0 10px;
         height: 60px;
     }
-    .nav-logo, .dropdown {
+    .nav-logo, .dropdown, .col-mc-3 {
         display: none;
     }
     .search-container {
@@ -339,6 +441,7 @@ footer .container {
         margin-left: auto;
     }
     .main-slider {
+        margin-top: 95px;
         height: 200px;
     }
     footer {
@@ -356,6 +459,7 @@ footer .container {
     .row-ft {
         flex-wrap: wrap;
     }
+
 }
 
 @media screen and (max-width: 768px) {

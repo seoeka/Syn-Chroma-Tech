@@ -48,34 +48,36 @@
           </div>
         </div>
       </div>
-      <div class="navbar-first">
-        <a href="#"><img src="assets/img/logo-main.jpg" alt="Logo SCT" id="logo-main-first"></a>
-        <p id="text-first">SYN CHROMA TECH</p>
-      </div>
       <div class="navbar" id="topNav">
-        <div class="nav-logo">
-          <a href="#"><img src="assets/img/logo-main.jpg" alt="Logo SCT" id="logo-main"></a>
-          <p id="text">SYN CHROMA TECH</p>
+        <div class="navbar-first">
+          <a href="#"><img src="assets/img/logo-main.jpg" alt="Logo SCT" id="logo-main-first"></a>
+          <p id="text-first">SYN CHROMA TECH</p>
         </div>
-        <button class="homebtn">Beranda</button>
-        <div class="dropdown">
-          <button class="dropbtn">Kategori 
-            <i class="fa-solid fa-circle-chevron-down dropdown-icon"></i>
-          </button>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Item 1</a>
-            <a class="dropdown-item" href="#">Item 2</a>
+        <div class="navbar-second">
+          <div class="nav-logo">
+            <a href="#"><img src="assets/img/logo-main.jpg" alt="Logo SCT" id="logo-main"></a>
+            <p id="text">SYN CHROMA TECH</p>
           </div>
-        </div>
-        <div class="search-container">
-          <i class="fas fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" class="search-input" placeholder="Cari Produk">
-        </div>
-        <div>
-          <button style="font-size: 24px; color: black; padding: 10px 5px; 
-          border: none; outline: none; background-color:inherit;" class="menu-icon" onclick="myFunction()">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+          <button class="homebtn">Beranda</button>
+          <div class="dropdown">
+            <button class="dropbtn">Kategori 
+              <i class="fa-solid fa-circle-chevron-down dropdown-icon"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="#">Item 1</a>
+              <a class="dropdown-item" href="#">Item 2</a>
+            </div>
+          </div>
+          <div class="search-container">
+            <i class="fas fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" class="search-input" placeholder="Cari Produk">
+          </div>
+          <div>
+            <button style="font-size: 24px; color: black; padding: 10px 5px; 
+            border: none; outline: none; background-color:inherit;" class="menu-icon" onclick="myFunction()">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+          </div>
         </div>
       </div>
     </header>
@@ -95,45 +97,145 @@
     </div>
     <div class="main-container">
       <div class="row-mc">
-        <div class="nav-category">
-          <a href="">
-            <h3>Kategori</h3>
-            <i class="fa fa-angle-down text-white"></i>
-          </a>
-          <nav class="collapse">
-            <div class="navbar-nav" style="height: auto;">
-              <div class="nav-item">
-                <a href="#1" class="nav-link">Item 1
-                  <i class="fa fa-angle-down text-white"></i>
-                </a>
-                <div id="1" class="dropdown-menu">
-                  <a href="" class="dropdown-item">
-                    <i class="fas fa-caret-right pr-1"></i> Print
+        <div class="col-mc-3">
+          <div class="nav-category">
+            <a class="navbar-head" href="">
+              <h3>Kategori</h3>
+              <i class="fa fa-angle-down text-white"></i>
+            </a>
+            <nav class="collapse">
+              <div class="navbar-nav" style="height: auto;">
+                <div class="nav-item">
+                  <a href="#1" class="nav-link">Item 1
+                    <i class="fa fa-angle-down text-white"></i>
                   </a>
-                  <a href="" class="dropdown-item">
-                    <i class="fas fa-caret-right pr-1"></i> Foto
+                  <div id="1" class="dropdown-menu">
+                    <a href="" class="dropdown-item">
+                      <i class="fas fa-caret-right pr-1"></i> Print
+                    </a>
+                    <a href="" class="dropdown-item">
+                      <i class="fas fa-caret-right pr-1"></i> Foto
+                    </a>
+                  </div>
+                </div>
+                <div class="nav-item">
+                  <a href="#2" class="nav-link">Item 2
+                    <i class="fa fa-angle-down text-white"></i>
                   </a>
+                  <div id="2" class="dropdown-menu">
+                    <a href="" class="dropdown-item">
+                      <i class="fas fa-caret-right pr-1"></i> Print
+                    </a>
+                    <a href="" class="dropdown-item">
+                      <i class="fas fa-caret-right pr-1"></i> Foto
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="nav-item">
-                <a href="#2" class="nav-link">Item 2
-                  <i class="fa fa-angle-down text-white"></i>
-                </a>
-                <div id="2" class="dropdown-menu">
-                  <a href="" class="dropdown-item">
-                    <i class="fas fa-caret-right pr-1"></i> Print
-                  </a>
-                  <a href="" class="dropdown-item">
-                    <i class="fas fa-caret-right pr-1"></i> Foto
-                  </a>
+            </nav>
+          </div>
+        </div>
+        <div class="col-mc-9">
+          <div class="product-list">
+            <div class="product-head">
+              <h2>PRODUK</h2>
+            </div>
+            <div class="product-content">
+              <div class="product-card">
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="pc-item">
+                  <div class="pc-head">
+                    <a href="">
+                      <img src="" alt="Image 1">
+                    </a>
+                  </div>
+                  <div class="pc-body">
+                    <a href="">
+                      <h6>Cetak Foto</h6>
+                    </a>
+                    <div class="pc-price">
+                      <p>Rp. 5000</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </nav>
-        </div>
-        <div class="product-list">
-          
-        </div>
+          </div>
+        </div> 
       </div>
     </div>
     <section>
