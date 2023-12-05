@@ -45,44 +45,27 @@ $banner = query("SELECT * FROM image_banner ib GROUP BY ib.image_id");
             </ul>
         </nav>
         <script>
-        $(document).ready(function () {
-        $(".modal form").submit(function (e) {
-        e.preventDefault();
+            $(document).ready(function () {
+                $(".modal form").submit(function (e) {
+                    e.preventDefault();
 
-        var fileInput = $(this).find("#photo")[0];
-        var titleInput = $(this).find("input[name='tim_title']").val();
-        var formData = new FormData();
+                    let formData = new FormData(this);
 
-        // Check if a file is selected
-        if (fileInput.files.length > 0) {
-            var file = fileInput.files[0];
-
-            // Validate file type and size
-            if (file.size > (1024 * 1024 * 2) || !['image/png', 'image/jpeg'].includes(file.type)) {
-                alert("Ukuran file tidak boleh lebih dari 2MB dan harus berupa gambar (JPEG atau PNG).");
-                return;
-            }
-
-            formData.append('tim_ip', file);
-        }
-        formData.append('tim_title', titleInput);
-        formData.append('tim_id', $(this).find("input[name='tim_id']").val());
-
-        $.ajax({
-            url: "config/crud.php",
-            type: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                alert(response);
-            },
-            error: function () {
-                alert("Gagal menyimpan data ke database.");
-            }
-        });
-    });
-});
+                    $.ajax({
+                        url: "config/crud.php",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            alert(response); // Check the response for any error messages
+                        },
+                        error: function () {
+                            alert("Gagal menyimpan data ke database.");
+                        }
+                    });
+                });
+            });
         </script>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">

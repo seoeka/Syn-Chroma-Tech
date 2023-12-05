@@ -49,44 +49,27 @@ $produk = query("SELECT * FROM products p ORDER by product_id");
             </ul>
         </nav>
         <script>
-        $(document).ready(function () {
-            $(".modal form").submit(function (e) {
-            e.preventDefault();
+            $(document).ready(function () {
+                $(".modal form").submit(function (e) {
+                    e.preventDefault();
 
-            var fileInput = $(this).find("#photo")[0];
-            var orderInput = $(this).find("input[name='tpi_order']").val();
-            var formData = new FormData();
+                    let formData = new FormData(this);
 
-            // Check if a file is selected
-            if (fileInput.files.length > 0) {
-                var file = fileInput.files[0];
-
-                // Validate file type and size
-                if (file.size > (1024 * 1024 * 2) || !['image/png', 'image/jpeg'].includes(file.type)) {
-                    alert("Ukuran file tidak boleh lebih dari 2MB dan harus berupa gambar (JPEG atau PNG).");
-                    return;
-                }
-                    formData.append('tpi_ip', file);
-                }
-
-                formData.append('tpi_order', orderInput);
-                formData.append('tpi_id', $(this).find("input[name='tpi_id']").val());
-
-                $.ajax({
-                    url: "config/crud.php",
-                    type: "POST",
-                    data: formData,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        alert(response);
-                    },
-                    error: function () {
-                        alert("Gagal menyimpan data ke database.");
-                    }
+                    $.ajax({
+                        url: "config/crud.php",
+                        type: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            alert(response); // Check the response for any error messages
+                        },
+                        error: function () {
+                            alert("Gagal menyimpan data ke database.");
+                        }
+                    });
                 });
             });
-        });
         </script>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
@@ -177,7 +160,7 @@ $produk = query("SELECT * FROM products p ORDER by product_id");
                                     <?php foreach ($images as $row) : ?>
                                         <tr>
                                             <td><?= $row['image_id']; ?> </td>
-                                            <td><img src="img/<?= $row["image_path"] ?>" width="250px"/> </td>
+                                            <td><img src="img/<?= $row["image_path"] ?>" width="150px"/> </td>
                                             <td><?= $row['product']; ?> </td>
                                             <td><?= $row['display_order']; ?> </td>
                                             <td class="aksi">
@@ -204,10 +187,24 @@ $produk = query("SELECT * FROM products p ORDER by product_id");
                                                                 <img src="img/<?= $row["image_path"] ?>" width="150px"/>
                                                                 <input type="file" name="tpi_ip" class="form-control-file" id="photo" value="<?= $row['image_path']; ?>" required>
                                                             </div><br>
-                                                            <div class="col">
-                                                                <label class="form-label">Judul (Keterangan) :</label>
-                                                                <input type="text" name="tpi_order" class="form-control" value="<?= $row['image_title']; ?>" required>
-                                                            </div>                                  
+                                                            <div class="row">
+                                                                <div class="col">
+                                                                    <div class="mb-3">
+                                                                        <label class="form-label">Produk</label>
+                                                                        <select class="form-select" name="tpi_pro" required>
+                                                                            <?php foreach ($produk as $p) : ?>
+                                                                                <option value="<?= $p['product_id']; ?>" <?= ($p['product_id'] == $row['product']) ? 'selected' : ''; ?>>
+                                                                                    <?= $p['product_name']; ?>
+                                                                                </option>
+                                                                            <?php endforeach ?>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <label class="form-label">Urutan :</label>
+                                                                    <input type="number" name="tpi_order" class="form-control" value="<?= $row['display_order']; ?>" min="1" required>
+                                                                </div>   
+                                                            </div>                               
                                                         </div>
                                                     <div class="modal-footer">
                                                         <button type="submit" class="btn btn-success" name="bt_editI">Update</button>
@@ -265,9 +262,22 @@ $produk = query("SELECT * FROM products p ORDER by product_id");
                                             <label class="form-label">Gambar Produk :</label><br>
                                             <input type="file" name="tpi_ip" class="form-control-file" id="photo" required>
                                         </div><br>
-                                        <div class="col">
-                                            <label class="form-label">Urutan :</label>
-                                            <input type="number" name="tpi_order" class="form-control" required>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Kategori</label>
+                                                        <select class="form-select" name="tpi_pro" required>
+                                                            <option value="" selected="selected" hidden="hidden">Pilih</option>
+                                                        <?php foreach($produk as $p) : ?>
+                                                            <option value="<?=$p['product_id']; ?>"><?php echo $p['product_name']; ?></option>
+                                                        <?php endforeach ?>
+                                                        </select>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <label class="form-label">Urutan :</label>
+                                                <input type="number" name="tpi_order" class="form-control" required>
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="modal-footer">
