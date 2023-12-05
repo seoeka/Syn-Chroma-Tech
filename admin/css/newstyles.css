@@ -10,3 +10,7 @@
 .card-body tbody td.aksi {
     text-align: center;
 }
+.max-width-100 {
+    max-width: 100px;
+    word-wrap: break-word; /* Untuk memastikan teks yang panjang akan dibungkus ke baris berikutnya */
+}

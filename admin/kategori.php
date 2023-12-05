@@ -8,7 +8,7 @@ if (!isset($_SESSION['username'])) {
 
 require __DIR__ . '/config/functions.php';
 
-$display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS jumlah_produk
+$kategori = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS jumlah_produk
                   FROM categories c LEFT JOIN products p ON c.category_id = p.category_id
                   GROUP BY c.category_id");
 ?>
@@ -19,10 +19,10 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SCT Admin</title>        
+        <title>Dashboard - SCT Admin</title> 
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />       
         <link href="css/newstyles.css" rel="stylesheet" /> <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-        
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -130,7 +130,7 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($display as $row) : ?>
+                                    <?php foreach ($kategori as $row) : ?>
                                         <tr>
                                             <td><?= $row['category_id']; ?> </td>
                                             <td><?= $row['category_name']; ?> </td>

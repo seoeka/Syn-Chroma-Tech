@@ -8,9 +8,7 @@ if (!isset($_SESSION['username'])) {
 
 require __DIR__ . '/config/functions.php';
 
-$display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS jumlah_produk
-                  FROM categories c LEFT JOIN products p ON c.category_id = p.category_id
-                  GROUP BY c.category_id");
+$banner = query("SELECT * FROM image_banner ib GROUP BY ib.image_id");
 ?>
 <html lang="en">
     <head>
@@ -19,7 +17,8 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - SCT Admin</title>        
+        <title>Dashboard - SCT Admin</title> 
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />       
         <link href="css/newstyles.css" rel="stylesheet" /> <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         
@@ -45,6 +44,46 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
                 </li>
             </ul>
         </nav>
+        <script>
+        $(document).ready(function () {
+        $(".modal form").submit(function (e) {
+        e.preventDefault();
+
+        var fileInput = $(this).find("#photo")[0];
+        var titleInput = $(this).find("input[name='tim_title']").val();
+        var formData = new FormData();
+
+        // Check if a file is selected
+        if (fileInput.files.length > 0) {
+            var file = fileInput.files[0];
+
+            // Validate file type and size
+            if (file.size > (1024 * 1024 * 2) || !['image/png', 'image/jpeg'].includes(file.type)) {
+                alert("Ukuran file tidak boleh lebih dari 2MB dan harus berupa gambar (JPEG atau PNG).");
+                return;
+            }
+
+            formData.append('tim_ip', file);
+        }
+        formData.append('tim_title', titleInput);
+        formData.append('tim_id', $(this).find("input[name='tim_id']").val());
+
+        $.ajax({
+            url: "config/crud.php",
+            type: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                alert(response);
+            },
+            error: function () {
+                alert("Gagal menyimpan data ke database.");
+            }
+        });
+    });
+});
+        </script>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -124,43 +163,48 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
                                     <thead>
                                         <tr>
                                             <th>Id</th>
-                                            <th>Nama Banner</th>
-                                            <th>Jumlah Produk</th>
+                                            <th>Gambar Banner</th>
+                                            <th>Judul (Keterangan)</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    <?php foreach ($display as $row) : ?>
+                                    <?php foreach ($banner as $row) : ?>
                                         <tr>
-                                            <td><?= $row['category_id']; ?> </td>
-                                            <td><?= $row['category_name']; ?> </td>
-                                            <td><?= $row['jumlah_produk']; ?> </td>
+                                            <td><?= $row['image_id']; ?> </td>
+                                            <td><img src="img/<?= $row["image_path"] ?>" width="250px"/> </td>
+                                            <td><?= $row['image_title']; ?> </td>
                                             <td class="aksi">
                                                 <div class="text-center">
-                                                    <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEdit<?= $row['category_id'] ?>" style="font-weight: 600;"><i class="bi bi-pencil-square"></i>&nbsp;Ubah&nbsp;</a>
-                                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelete<?= $row['category_id'] ?>" style="font-weight: 600;"><i class="bi bi-trash-fill"></i>&nbsp;Hapus&nbsp;</a>
+                                                    <a href="#" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#modalEdit<?= $row['image_id'] ?>" style="font-weight: 600;"><i class="bi bi-pencil-square"></i>&nbsp;Ubah&nbsp;</a>
+                                                    <a href="#" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modalDelete<?= $row['image_id'] ?>" style="font-weight: 600;"><i class="bi bi-trash-fill"></i>&nbsp;Hapus&nbsp;</a>
                                                 </div>
                                             </td>
                                         </tr>
              
                                     <!--Awal Modal Edit -->
-                                    <div class="modal fade" id="modalEdit<?= $row['category_id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modalEdit<?= $row['image_id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel">Form Data Banner</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form method="POST" action="config/crud.php">
-                                                    <input type="hidden" name="tc_id" value="<?=$row['category_id']?>">
+                                                <form method="POST" action="config/crud.php" enctype="multipart/form-data">
+                                                    <input type="hidden" name="tim_id" value="<?=$row['image_id']?>">
                                                         <div class="modal-body">
-                                                            <div class="mb-3">
-                                                                <label class="form-label">Nama Banner</label>
-                                                                <input type="text" name="tc_name" class="form-control" value="<?=$row['category_name']?>" placeholder="Masukkan Nama Banner" required>
-                                                            </div>                                    
+                                                            <div class="mb-file" style="display: block;">
+                                                                <label class="form-label">Gambar Banner :</label><br>
+                                                                <img src="img/<?= $row["image_path"] ?>" width="150px"/>
+                                                                <input type="file" name="tim_ip" class="form-control-file" id="photo" value="<?= $row['image_path']; ?>" required>
+                                                            </div><br>
+                                                            <div class="col">
+                                                                <label class="form-label">Judul (Keterangan) :</label>
+                                                                <input type="text" name="tim_title" class="form-control" value="<?= $row['image_title']; ?>" required>
+                                                            </div>                                  
                                                         </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-success" name="bt_editK">Update</button>
+                                                        <button type="submit" class="btn btn-success" name="bt_editB">Update</button>
                                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Keluar</button>
                                                     </div>
                                                 </form> 
@@ -171,22 +215,22 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
                                     <!--Akhir Modal Edit -->
 
                                     <!--Awal Modal Hapus -->
-                                    <div class="modal fade" id="modalDelete<?= $row['category_id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal fade" id="modalDelete<?= $row['image_id'] ?>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title" id="staticBackdropLabel">Konfirmasi Hapus Banner</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form method="POST" action="config/crud.php">
-                                                    <input type="hidden" name="tc_id" value="<?= $row['category_id']?>">
+                                                <form method="POST" action="config/crud.php" enctype="multipart/form-data">
+                                                    <input type="hidden" name="tim_id" value="<?= $row['image_id']?>">
                                                     <div class="modal-body">       
-                                                        <h5 class="text-center">Apa Anda yakin ingin menghapus Banner ini?<br>
-                                                        <span class="text-danger"><?=$row['category_name']?></span>
+                                                        <h5 class="text-center">Apa Anda yakin ingin menghapus Gambar Banner ini?<br>
+                                                        <span><img src="img/<?= $row["image_path"] ?>" width="100px"/></span>
                                                         </h5>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="submit" class="btn btn-danger" name="bt_deleteK">Hapus</button>
+                                                        <button type="submit" class="btn btn-danger" name="bt_deleteB">Hapus</button>
                                                         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
                                                     </div>
                                                 </form> 
@@ -209,14 +253,19 @@ $display = query("SELECT c.category_id, c.category_name, COUNT(p.product_id) AS 
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
 
-                                <form method="POST" action="config/crud.php">                 
+                                <form method="POST" action="config/crud.php" enctype="multipart/form-data">                 
                                     <div class="modal-body">
-                                        <div class="mb-3">
-                                        <label class="form-label">Nama Banner</label>
-                                        <input type="text" name="tc_name" class="form-control" placeholder="Masukkan Nama Banner" required>
+                                        <div class="mb-file" style="display: block;">
+                                            <label class="form-label">Gambar Banner :</label><br>
+                                            <input type="file" name="tim_ip" class="form-control-file" id="photo" required>
+                                        </div><br>
+                                        <div class="col">
+                                            <label class="form-label">Judul (Keterangan) :</label>
+                                            <input type="text" name="tim_title" class="form-control" placeholder="Masukkan Judul Gambar" required>
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="submit" class="btn btn-success" name="bt_addK">Tambah</button>
+                                        <button type="submit" class="btn btn-success" name="bt_addB">Tambah</button>
                                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Keluar</button>
                                     </div>
                                 </form> 
